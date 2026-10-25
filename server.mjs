@@ -7,7 +7,7 @@ import { createDiskStorage } from './lib/audio-storage.mjs';
 import { createApi } from './lib/api.mjs';
 const port=Number(process.env.PORT||8888),root=resolve('./public'),db=createSqliteRepository(process.env.VOICE_DB||'./data/voice.sqlite');
 const api=createApi({db,storage:createDiskStorage(process.env.VOICE_UPLOAD_DIR||'./data/audio'),secureCookies:false});
-const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon'};
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.txt':'text/plain; charset=utf-8','.xml':'application/xml; charset=utf-8'};
 const server=createServer(async(req,res)=>{
   try {
     const target=new URL(req.url,`http://${req.headers.host || 'localhost'}`);
