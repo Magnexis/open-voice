@@ -8,7 +8,7 @@ Install Node.js 22+, run `npm install`, start `node server.mjs` in one terminal 
 
 ## Hosted backend
 
-Set `MAGNEXIS_VOICE_URL` to the verified HTTPS production website. Server-side authentication, recordings and moderation still require live deployment testing.
+The packaged Windows client defaults to `https://magnexis-voice-commons.netlify.app`. Set `MAGNEXIS_VOICE_URL` to override that target for development or another verified HTTPS deployment. Server-side authentication, recordings and moderation still require live deployment testing.
 
 ## Build Windows installer
 
