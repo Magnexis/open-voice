@@ -1,0 +1,22 @@
+{
+  "name": "magnexis-voice",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "description": "Independent community speech collection, review and CC0 dataset publishing platform",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "check": "node --test tests/*.test.mjs && node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "desktop": "electron desktop/main.cjs",
+    "desktop:build": "electron-builder --win --config desktop/electron-builder.yml"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4",
+    "@netlify/database": "^1.0.0"
+  },
+  "devDependencies": {"electron": "^38.0.0", "electron-builder": "^26.0.0"}
+}

@@ -1,0 +1,27 @@
+name: Deploy Magnexis Voice to Netlify
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: magnexis-voice-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Test project
+        run: npm run check
+      - name: Deploy production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          test -n "$NETLIFY_AUTH_TOKEN" && test -n "$NETLIFY_SITE_ID"
+          npx --yes netlify-cli@latest deploy --prod --site "$NETLIFY_SITE_ID" --build
