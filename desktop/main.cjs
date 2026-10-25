@@ -1,6 +1,6 @@
 const { app, BrowserWindow, session, shell, dialog } = require('electron');
 const DEV = process.env.NODE_ENV === 'development';
-const baseURL = process.env.MAGNEXIS_VOICE_URL || 'http://localhost:8888';
+const baseURL = process.env.MAGNEXIS_VOICE_URL || (app.isPackaged ? 'https://magnexis-voice-commons.netlify.app' : 'http://localhost:8888');
 const target = new URL(baseURL);
 if ((!DEV && target.protocol !== 'https:') && target.hostname !== 'localhost' && target.hostname !== '127.0.0.1') throw Error('A deployed Magnexis Voice URL must use HTTPS');
 const trustedOrigin = target.origin;
