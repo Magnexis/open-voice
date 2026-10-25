@@ -18,4 +18,4 @@ Magnexis Voice is independently implemented and uses original artwork and projec
 
 ## Artwork provenance
 
-`public/` is an independently authored visual design: serif editorials, lavender panels, left hand navigation, metric counters, waveform and microphone control. The old `docs/screen-speak.png` was an *earlier design-only image*, not a verified screenshot of the application. A real browser rendering has not been established in this environment.
+`public/` is an independently authored visual design: serif editorials, lavender panels, left hand navigation, metric counters, waveform and microphone control. The old `docs/screen-speak.png` was an *earlier design-only image*, not a verified screenshot of the application. The responsive interface passed a local desktop/mobile browser rendering smoke test with simulated API responses. This was not a production deployment or live microphone test.
