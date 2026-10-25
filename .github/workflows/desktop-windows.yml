@@ -1,6 +1,12 @@
 name: Build Windows Desktop
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/desktop-windows.yml'
+      - 'desktop/**'
+      - 'package.json'
 permissions:
   contents: read
 jobs:
