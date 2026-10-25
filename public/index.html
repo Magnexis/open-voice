@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Magnexis Voice is an independent public-domain speech data community. Read, record, listen, review and contribute your voice.">
+  <title>Magnexis Voice — Help technology hear every voice</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="#home" class="brand" aria-label="Magnexis Voice home"><span class="brand-icon">M<span class="mini-wave">◖◗</span></span><span>MAGNEXIS <strong>VOICE</strong></span></a>
+    <button class="mobile-menu" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <nav class="topnav" id="mainNav" aria-label="Main navigation">
+      <button data-view="speak">Speak</button><button data-view="listen">Listen</button><button data-view="write">Write</button><button data-view="download">Datasets</button><button data-view="about">About</button>
+    </nav>
+    <div class="account"><span id="userGreeting"></span><button class="pill outline" id="authBtn">Log in / Sign up</button></div>
+  </header>
+  <div class="notice"><span class="notice-symbol">✦</span> A shared voice dataset is built one contribution at a time. <button data-view="about">Learn how it works <span aria-hidden="true">↗</span></button></div>
+  <main id="home" class="layout">
+    <aside class="sidebar" aria-label="Contribution modes">
+      <div class="side-label">CONTRIBUTE</div>
+      <button data-view="speak" class="side-link"><span>◉</span> Scripted Speech</button>
+      <button data-view="spontaneous" class="side-link"><span>☷</span> Spontaneous Speech</button>
+      <button data-view="listen" class="side-link"><span>♫</span> Validate Audio</button>
+      <button data-view="write" class="side-link"><span>✎</span> Contribute Text</button>
+      <button data-view="sentencereview" class="side-link"><span>☑</span> Review Sentences</button>
+      <button data-view="transcribe" class="side-link"><span>≋</span> Transcribe Speech</button>
+      <button data-view="transcriptionreview" class="side-link"><span>✓</span> Review Transcripts</button>
+      <div class="side-sep"></div><div class="side-label">DATASET</div>
+      <button data-view="download" class="side-link"><span>↓</span> Download Data</button>
+      <button data-view="about" class="side-link"><span>ⓘ</span> How It Works</button>
+      <div class="side-tip"><div class="small-circle">✦</div><strong>Small clips.<br>Meaningful impact.</strong><p>Every recording helps create open speech data for research and technology.</p></div>
+    </aside>
+    <section class="content" aria-label="Magnexis Voice contribution workspace">
+      <div class="eyebrow">THE MAGNEXIS VOICE COMMONS <span class="eyebrow-dash"></span> <span id="currentSection">SCRIPTED SPEECH</span></div>
+      <div id="view" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer><div><strong>MAGNEXIS VOICE</strong><p>Every voice has a place in the future.</p></div><div><span>English · CC0 contributions</span><span>Independent project · <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0</a></span></div></footer>
+  <dialog id="authDialog" aria-labelledby="authHeading">
+    <div class="modal-bar"><h2 id="authHeading">Join Magnexis Voice</h2><button id="closeDialog" aria-label="Close">✕</button></div>
+    <p>Sign in to donate audio, review recordings and contribute sentences. Your display name is not included in dataset exports.</p>
+    <div class="tabs"><button id="loginTab" class="selected">Log in</button><button id="registerTab">Create account</button></div>
+    <form id="authForm">
+      <label id="nameLabel" hidden>Display name <input id="authName" maxlength="50" autocomplete="nickname"></label>
+      <label>Email <input id="authEmail" type="email" required autocomplete="email" maxlength="254"></label>
+      <label>Password <input id="authPassword" type="password" required minlength="12" autocomplete="current-password"></label>
+      <label id="termsLabel" class="checkrow" hidden><input type="checkbox" id="authTerms"> I agree to contribute only my own content and respect others' privacy.</label>
+      <div class="feedback" id="authFeedback" role="alert"></div>
+      <button type="submit" class="btn primary" id="authSubmit">Log in</button>
+    </form>
+    <p class="small-note">Magnexis organizational SSO is not available until an identity issuer is configured. Never share your password.</p>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body></html>

@@ -1,0 +1,53 @@
+
+> magnexis-voice@0.1.0 check
+> node --test tests/*.test.mjs && node scripts/check.mjs
+
+TAP version 13
+# (node:1819) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: seed text is queryable; registration, cookies, login, logout persist securely
+ok 1 - seed text is queryable; registration, cookies, login, logout persist securely
+  ---
+  duration_ms: 226.800231
+  type: 'test'
+  ...
+# Subtest: recording lifecycle: consent + MIME validation, independent review, exclusion of flagged clips
+ok 2 - recording lifecycle: consent + MIME validation, independent review, exclusion of flagged clips
+  ---
+  duration_ms: 169.394266
+  type: 'test'
+  ...
+# Subtest: sentence review requires two other accounts, with distinct votes
+ok 3 - sentence review requires two other accounts, with distinct votes
+  ---
+  duration_ms: 139.70478
+  type: 'test'
+  ...
+# Subtest: spontaneous speech -> two votes -> transcript -> two votes -> approved transcript in export
+ok 4 - spontaneous speech -> two votes -> transcript -> two votes -> approved transcript in export
+  ---
+  duration_ms: 235.773465
+  type: 'test'
+  ...
+# Subtest: hostile request origin, malformed audio, nonmembers and malformed IDs are rejected
+ok 5 - hostile request origin, malformed audio, nonmembers and malformed IDs are rejected
+  ---
+  duration_ms: 59.191605
+  type: 'test'
+  ...
+# Subtest: ZIP archive writer generates valid signatures even when empty
+ok 6 - ZIP archive writer generates valid signatures even when empty
+  ---
+  duration_ms: 0.301146
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 893.999806
+Source validation passed (11 mandatory files)
