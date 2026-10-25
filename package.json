@@ -14,7 +14,7 @@
     "check": "node --test tests/*.test.mjs && node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs",
     "desktop": "electron desktop/main.cjs",
-    "desktop:build": "electron-builder --win --config desktop/electron-builder.yml",
+    "desktop:build": "electron-builder --win --publish never --config desktop/electron-builder.yml",
     "precheck": "node scripts/prepare-site.mjs"
   },
   "dependencies": {
