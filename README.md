@@ -1,106 +1,168 @@
-# Magnexis Voice
-
 <div align="center">
 
-**Community-powered speech collection and independent review**
+# Magnexis Voice
 
-[Website / deployment target](https://magnexis-voice-commons.netlify.app) · [Magnexis organization](https://github.com/Magnexis) · [Mozilla Common Voice](https://commonvoice.mozilla.org/)
+**Version 1.25.0 · Speech recording, review, and CC0 dataset pilot**
 
-![Node](https://img.shields.io/badge/Node.js-22%2B-339933?logo=node.js&logoColor=white)
-![Project stage](https://img.shields.io/badge/status-functional%20pilot-2563eb)
-![Speech data](https://img.shields.io/badge/contributed%20speech-CC0%201.0-059669)
+### Community-powered speech data, built with consent and independent review
+
+**Record · Validate · Transcribe · Contribute**
+
+[Website (deployment target)](https://magnexis-voice-commons.netlify.app) · [How it works](https://magnexis-voice-commons.netlify.app/how-it-works.html) · [Documentation](docs/SECURITY-AND-DEPLOYMENT.md) · [Contributing](CONTRIBUTING.md) · [Project security](SECURITY.md)
+
+![Version](https://img.shields.io/badge/version-1.25.0-6C4AB6)
+![Node.js 22+](https://img.shields.io/badge/Node.js-22%2B-339933?logo=node.js&logoColor=white)
+![Status](https://img.shields.io/badge/status-functional%20pilot-2663eb)
+![Speech license](https://img.shields.io/badge/contributed%20speech-CC0%201.0-059669)
+![Repository](https://img.shields.io/badge/source-public-475569)
 
 </div>
 
 ---
 
-**Magnexis Voice** is an independently built application for creating reviewed, reusable speech datasets. Contributors record scripted sentences and spontaneous responses, validate other submissions, propose sentences, and help transcribe approved audio. The application supports a responsive website, a shared persistent API, and an Electron desktop wrapper.
+**Magnexis Voice** is a contributor-focused web and desktop-shell project for gathering and curating speech recordings. Volunteers record scripted sentences or spontaneous responses, independently review clips, propose new sentences, and help transcribe approved audio. Small, approved sample datasets can be exported with metadata and license information.
 
-It follows the broad **community participation model** made familiar by Mozilla Common Voice, but it is an original implementation and is **not affiliated with or endorsed by Mozilla**.
+The contributor workflow is inspired by the community-participation principles of [Mozilla Common Voice](https://commonvoice.mozilla.org/), but Magnexis Voice is an independently implemented project and is **not affiliated with or endorsed by Mozilla**.
 
-> **Deployment status:** The URL above is the intended Netlify site, **not a verified live deployment of this code**. The current release is a locally tested pilot, not an audited or production-ready service. Do not invite contributors until hosted storage, registration, privacy, moderation and recording functionality have been tested.
+> **Project maturity:** A locally tested **functional pilot**, not a production-audited public recording service. The [Netlify address](https://magnexis-voice-commons.netlify.app) is the intended deployment target; a successful production deployment and live recording flow have **not yet been verified**. Do not invite public contributors until the security, privacy, and deployment checklist has been completed.
 
-## Key features
+## Experience
 
-| Record | Validate | Build datasets |
+| Contribute | Validate | Curate |
 | --- | --- | --- |
-| Five-prompt scripted sessions with playback, rerecording and skipping | Independent yes/no speech votes and self-review prevention | Sentence proposals and independent review |
-| Open-ended spontaneous speech recording | Duplicate-vote prevention and abuse reports | Transcript contribution and approval |
-| Explicit CC0 consent for contributions | Two independent positive reviews required to approve recordings | Small ZIP downloads with audio, CSV metadata and CC0 information |
+| Record five-sentence batches; rerecord or skip prompts | Independently approve or reject recordings | Approve new sentences and review transcriptions |
+| Answer spontaneous speech prompts | Flag inappropriate audio for quarantine | Export approved small ZIP samples with CSV metadata |
+| Explicitly dedicate contributions under CC0 1.0 | Prevent self-review and duplicate votes | Exclude rejected or flagged content from exports |
 
-## Architecture
+### Interface screenshots — desktop and mobile
 
-```text
-public/                        Browser interface
-lib/api.mjs                    Shared API and business rules
-lib/sqlite.mjs                 Local persisted SQLite metadata
-lib/postgres.mjs               Hosted Netlify Database adapter
-lib/audio-storage.mjs          Local disk / private Netlify Blobs
-netlify/functions/api.mjs      Hosted API entrypoint
-netlify/database/migrations/   Versioned PostgreSQL migrations
-desktop/                       Electron shell and Windows packaging config
-tests/                         Persistent-workflow integration tests
-.github/workflows/             Continuous verification and manual Netlify deployment
-```
+Screenshots are captured from **local browser UI smoke tests using simulated API responses**. They illustrate the real application interface but **do not demonstrate a live hosted backend or a packaged Windows installer**.
 
-Local development uses **Node.js + SQLite + on-disk audio**. The hosted target uses **Netlify static hosting + Functions + PostgreSQL Database + private Blobs**. Authentication currently uses email/password and hashed sessions; **Magnexis OIDC, social sign-in, email verification and recovery are not implemented**.
+**Desktop web interface**
 
-## Run locally
+![Magnexis Voice v1.25 scripted-speech recording view in a desktop browser](docs/visual-smoke-desktop.png)
 
-Requires Node.js 22 or later:
+**Mobile-responsive interface**
+
+<img src="docs/visual-smoke-mobile.png" alt="Magnexis Voice v1.25 mobile-responsive recording interface" width="330">
+
+### Desktop application — Electron
+
+The repository includes an Electron desktop wrapper with browser sandboxing, trusted-origin navigation and scoped microphone permissions. It runs the same web and API workflows as the browser version.
 
 ```bash
-node server.mjs
-# Visit http://localhost:8888
+npm install
+# With the local server running in a separate terminal:
+npm run desktop
 
-npm run check
-# Six automated integration tests plus project checks
+# On Windows: build an unsigned x64 NSIS installer (not yet a published binary)
+npm run desktop:build
 ```
 
-The local application stores its database and recordings under ignored `data/`. The built-in Node SQLite module can emit an experimental API warning.
+Read the [desktop application guide](docs/DESKTOP.md). You can also run the manual **Build Windows Desktop** GitHub Actions workflow; an installer is not automatically available with the source code. Configure `MAGNEXIS_VOICE_URL` to a verified HTTPS deployment when using the hosted backend. [Desktop build workflow](.github/workflows/desktop-windows.yml).
 
-For the Electron wrapper and hosted development dependencies:
+
+## Search visibility and project information
+
+Version 1.25 includes descriptive page metadata, canonical URLs, Open Graph/X share cards, Schema.org structured data, and indexable informational pages. Crawlers can discover the root sitemap at [`/sitemap.xml`](https://magnexis-voice-commons.netlify.app/sitemap.xml) and public documentation at the About, How It Works, and Datasets pages **after deployment**.
+
+- [About the project](https://magnexis-voice-commons.netlify.app/about.html)
+- [Recording and validation walkthrough](https://magnexis-voice-commons.netlify.app/how-it-works.html)
+- [Dataset and licensing information](https://magnexis-voice-commons.netlify.app/datasets.html)
+- [SEO verification checklist](docs/SEO.md)
+- [Release history](CHANGELOG.md)
+
+These links describe intended production routes; indexing depends on successful deployment, publicly accessible responses, search-console verification and crawl processing. No search ranking or indexing is guaranteed.
+
+## Technical architecture
+
+```text
+public/                       Responsive contributor interface (HTML, CSS, JS)
+lib/api.mjs                   Session, recording, review and export endpoints
+lib/sqlite.mjs                Local relational persistence
+lib/postgres.mjs              Netlify Database / PostgreSQL adapter
+lib/audio-storage.mjs         Local filesystem and Netlify Blobs adapters
+lib/schema.mjs                Initial language prompts and local schema
+netlify/functions/api.mjs     Hosted API entry point
+netlify/database/migrations/  Versioned PostgreSQL schema migrations
+desktop/                      Electron desktop wrapper and build config
+tests/                        End-to-end API / persistence integration tests
+.github/workflows/            CI checks and opt-in Netlify deployment workflow
+```
+
+| Layer | Development | Hosted target |
+| --- | --- | --- |
+| User interface | Local Node HTTP server | Netlify static hosting |
+| API | `server.mjs` + shared API | Netlify Functions |
+| Database | SQLite | Netlify Database (PostgreSQL) |
+| Audio storage | Local disk | Netlify Blobs |
+| Authentication | Email/password + secure password hashes and sessions | Same session system (HTTPS cookies) |
+| Desktop | Electron launcher | Uses the same web backend |
+
+**Not implemented:** Magnexis OIDC single sign-on, social sign-in, email verification/password recovery, packaged/signed installer distribution, large-scale export jobs, and production-grade moderation tooling. These are on the roadmap, not shipped features.
+
+## Quick start
+
+**Requirements:** Node.js 22 or newer. The local server uses Node's built-in SQLite module and does not need npm packages installed. Node may print an experimental SQLite warning.
+
+```bash
+# Start the local site and persistent API
+node server.mjs
+# http://localhost:8888
+
+# Run six API/persistence tests and the source checks
+npm run check
+```
+
+The local server keeps application data in ignored `data/voice.sqlite` and `data/audio/`. Create separate contributor accounts to review each other's items; approval requires two independent positive votes.
+
+To work with the hosted dependencies or launch the Electron wrapper:
 
 ```bash
 npm install
 npm run desktop
 ```
 
-## Deploy to Netlify
+See [Security & Deployment](docs/SECURITY-AND-DEPLOYMENT.md) for hosted environment setup, service dependencies, data-privacy constraints and production readiness.
 
-The existing intended site is **[magnexis-voice-commons.netlify.app](https://magnexis-voice-commons.netlify.app)** (site ID `d3ed6054-6fd4-4b28-a2db-606de5df2a70`). Its visitor-level SSO/password restriction was disabled, but **application deployment and backend provisioning remain unverified**.
+## API surface
 
-1. Run `npm install && npm run check`.
-2. Prepare Netlify Database; validate migrations locally using `netlify dev` and `netlify database migrations apply`.
-3. Test a restricted preview, including end-to-end storage, consent and security controls.
-4. Configure repository Actions secrets `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`; never commit credentials.
-5. After security and privacy review, manually run the **Deploy Magnexis Voice to Netlify** workflow.
-6. Verify registration, real microphone capture, recording upload, validation, moderation, and exports on the deployed site.
+| Area | Endpoints |
+| --- | --- |
+| Identity | `GET /api/auth/me`, `POST /api/auth/register`, `/api/auth/login`, `/api/auth/logout` |
+| Catalogue | `GET /api/config`, `/api/stats`, `/api/sentences`, `/api/prompts` |
+| Sentences | `POST /api/sentences`, `GET/POST /api/sentences/review` |
+| Audio | `POST /api/recordings`, `GET /api/recordings/next`, `POST /api/recordings/review`, `/api/recordings/report`, `GET /api/audio/:id` |
+| Transcription | `GET /api/transcriptions/next`, `POST /api/transcriptions`, `GET/POST /api/transcriptions/review` |
+| Dataset export | `GET /api/datasets/export?kind=scripted` or `kind=spontaneous` |
 
-Database usage may incur Netlify credits. The deployment workflow is **manual**, not automatically triggered by a push.
+Audio uploads are size and content-type checked. Approval uses two independent positive reviews with no negative reviews. Approved exports omit contributor account information; flagged audio is excluded. These controls reduce risk, but they do not replace operational moderation or professional security review.
 
-## Project boundaries and privacy
+## Deployment
 
-This is a **functional pilot**. The repository does not claim production hardening, global moderation, large corpus archival, password recovery or Magnexis OIDC support. Independently reviewed recordings are the only recordings included in sample exports; flagged audio is excluded.
+This repository includes Netlify Functions, PostgreSQL migrations, an **optional manual Windows Electron packaging workflow**, and a **manual** GitHub Actions production deployment workflow. It does not publish automatically on every push.
 
-**Speech submissions:** Contributors must explicitly dedicate their recordings to CC0 1.0 Universal, use their own voice, and avoid identifying details. Third-party downloads of dedicated recordings may not be recallable. Public recruitment requires a comprehensive privacy policy, age/consent protections, security review and operational moderation.
+1. Install dependencies and validate the project: `npm install && npm run check`.
+2. Confirm eligibility and provision the Netlify Database; validate migrations using `netlify dev` and `netlify database migrations apply` **locally**.
+3. Configure Netlify-hosted services and test a restricted preview, including Blob storage and permissions.
+4. To enable the workflow, set GitHub Actions secrets `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` (the existing Netlify project ID is `d3ed6054-6fd4-4b28-a2db-606de5df2a70`). Never place tokens in source code.
+5. Run **Deploy Magnexis Voice to Netlify** via GitHub Actions *only after* preview and privacy/security checks pass.
+6. Verify live API endpoints, registration, browser microphone permission, uploads, audio review and exports before publicly inviting participation.
 
-**Source code:** Public visibility does not automatically grant an open-source license. The source remains the property of its rights holders unless an explicit code license is published.
+The deployment URL is https://magnexis-voice-commons.netlify.app. Visitor-level SSO/password protection has been disabled on the existing Netlify project, but **deploy success is not established by that setting alone**. Database/storage usage may incur provider charges.
 
-## Documentation and contributions
+## Contributing, licensing and responsibility
 
-The complete source distribution includes:
-
-- `docs/SECURITY-AND-DEPLOYMENT.md`: known limitations and production checklist.
-- `docs/WORKFLOW-COMPARISON.md`: independent workflow/design provenance.
-- `CONTRIBUTING.md`: contribution practices and test expectations.
-- `SECURITY.md`: responsible security reporting.
-- `docs/visual-smoke-desktop.png`: **local UI smoke-test screenshot with simulated API responses**; not a production-site screenshot.
+- Contributions and bug reports are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a PR.
+- Follow the project [security reporting policy](SECURITY.md); do not publish exploitable vulnerabilities or private data in issues.
+- **Speech contributions:** Contributors must explicitly consent to the **CC0 1.0 Universal** dedication for submitted material. Participants should record only their own voice and avoid personal information.
+- **Source code:** Public visibility is not a grant of an open-source license. No general source-code license is granted unless the repository owner adds one separately. Third-party marks remain their respective owners' property.
+- **Privacy:** Once CC0 data is distributed, copies held by third parties cannot be recalled. Human review, data-removal processes, and a final privacy policy are required before open enrollment.
 
 ---
 
 <div align="center">
 
-**Built by [Magnexis](https://github.com/Magnexis)** · [Web deployment target](https://magnexis-voice-commons.netlify.app)
+**A project by [Magnexis](https://github.com/Magnexis)** · [Website](https://magnexis-voice-commons.netlify.app) · [Workflow comparison](docs/WORKFLOW-COMPARISON.md)
 
 </div>

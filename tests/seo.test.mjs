@@ -1,0 +1,8 @@
+import {test} from 'node:test';
+import {readFile,stat} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const base='https://magnexis-voice-commons.netlify.app';
+for(const f of ['index.html','about.html','how-it-works.html','datasets.html'])test(f+' search metadata and JSON-LD',async()=>{const html=await readFile('public/'+f,'utf8');assert.match(html,/<html lang="en">/);assert.match(html,/<title>[^<]{20,}<\/title>/);assert.match(html,/<meta name="description" content="[^"]{60,}"/);assert.ok(html.includes('rel="canonical" href="'+base+'/'));assert.ok(html.includes('property="og:image"'));const m=html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);assert.ok(m);JSON.parse(m[1]);});
+test('sitemap and robots',async()=>{const xml=await readFile('public/sitemap.xml','utf8');const robots=await readFile('public/robots.txt','utf8');assert.ok(robots.includes('Disallow: /api/'));assert.ok(robots.includes(base+'/sitemap.xml'));for(const p of ['/','/about.html','/how-it-works.html','/datasets.html'])assert.ok(xml.includes('<loc>'+base+p+'</loc>'));});
+test('screenshot assets are available',async()=>{for(const n of ['social-preview.png','voice-ui-desktop.png','voice-ui-mobile.png'])assert.ok((await stat('public/assets/'+n)).size>20000);const image=await readFile('public/assets/social-preview.png');assert.equal(image.readUInt32BE(16),1440);assert.equal(image.readUInt32BE(20),1497);});
+test('desktop version matches package',async()=>{assert.equal(JSON.parse(await readFile('package.json','utf8')).version,'1.25.0');assert.ok((await readFile('desktop/main.cjs','utf8')).includes('Magnexis Voice v1.25'));});

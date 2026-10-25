@@ -11,7 +11,7 @@ app.whenReady().then(()=>{
   session.defaultSession.setPermissionRequestHandler((contents,permission,callback,details)=>{
     callback(permission === 'media' && isTrusted(details.requestingUrl || contents.getURL()));
   });
-  window = new BrowserWindow({width:1350,height:890,minWidth:750,minHeight:550,title:'Magnexis Voice',autoHideMenuBar:true,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,webviewTag:false}});
+  window = new BrowserWindow({width:1350,height:890,minWidth:750,minHeight:550,title:'Magnexis Voice v1.25',autoHideMenuBar:true,webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,webviewTag:false}});
   window.webContents.setWindowOpenHandler(({url})=>{if(url.startsWith('https://creativecommons.org/')) shell.openExternal(url);return {action:'deny'};});
   window.webContents.on('will-navigate',(event,url)=>{if(!isTrusted(url))event.preventDefault();});
   window.loadURL(baseURL).catch(err=>dialog.showErrorBox('Magnexis Voice connection error',`${err.message}\n\nLaunch the local server or set MAGNEXIS_VOICE_URL to the deployed HTTPS service.`));

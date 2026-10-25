@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://magnexis-voice-commons.netlify.app/sitemap.xml
