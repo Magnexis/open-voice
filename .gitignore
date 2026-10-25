@@ -9,3 +9,8 @@ data/
 coverage/
 dist/
 release/
+
+# Built from tracked smoke-test screenshots by scripts/prepare-site.mjs
+public/assets/voice-ui-desktop.png
+public/assets/voice-ui-mobile.png
+public/assets/social-preview.png
